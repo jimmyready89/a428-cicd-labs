@@ -1,25 +1,16 @@
-pipeline {
-    agent {
-        docker {
-            image 'node:lts-bullseye-slim' 
-            args '-p 3000:3000' 
-        }
-    }
-    stages {
-        stage('Build') { 
-            steps {
-                sh 'npm install' 
+node {
+    withDockerContainer(args: '-p 3000:3000', image: 'node:lts-bullseye-slim') {
+        stage('Built') {
+            warnError('Error in build') {
+                sh 'npm i'
             }
         }
         stage('Test') {
-            steps {
+            catchError(message: 'Error in Test') {
                 sh './jenkins/scripts/test.sh'
             }
         }
-    }
-    post {
-        // Clean after build
-        always {
+        stage('Post Action Clean UP WS') {
             cleanWs()
         }
     }
