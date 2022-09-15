@@ -4,21 +4,22 @@ node {
         def BuiltSuccess = false
 
         stage('Pull scripts dari repository github') {
-            catchError('Error in build') {
+            catchError(message: 'Errro in build') {
                 git branch: 'react-app', url: 'https://github.com/jimmyready89/a428-cicd-labs'
                 PullSuccess = true
             }
         }
         stage('Built') {
             if (PullSuccess) {
-                catchError('Error in build') {
+                catchError(message: 'Error in build') {
                     sh 'npm i'
+                    BuiltSuccess = true
                 }
             }
         }
         stage('Test') {
             if (BuiltSuccess) {
-                catchError('Error in Test') {
+                catchError(message: 'Error in Test') {
                     sh './jenkins/scripts/test.sh'
                 }
             }
