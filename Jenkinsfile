@@ -20,7 +20,7 @@ node {
             if (PullSuccess == true) {
                 catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
                     sh 'npm i'
-                    BuiltSuccess = false
+                    BuiltSuccess = true
                 }
             }else{
                 Utils.markStageSkippedForConditional(STAGE_NAME)
