@@ -1,7 +1,7 @@
 import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
 
 node {
-    docker.image('python:3.7.14-alpine3.16').inside('-p 3000:3000') {
+    docker.image('node:lts-bullseye-slim').inside('-p 3000:3000') {
         boolean PullSuccess = false
         boolean BuiltSuccess = false
 
